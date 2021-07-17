@@ -65,7 +65,64 @@
   }
 
   function cnl_admin_page_view() {
-    echo '<h1>Hello cookie!</h1>';
+    if( !empty($_POST) ) {
+      update_option('cnl_bg', $_POST['cnl_bg']);
+      update_option('cnl_color', $_POST['cnl_color']);
+      update_option('cnl_text', $_POST['cnl_text']);
+      update_option('cnl_position', $_POST['cnl_position']);
+    }
+    $bg = get_option('cnl_bg');
+    $color = get_option('cnl_color');
+    $text = get_option('cnl_text');
+    $position = get_option('cnl_position');
+  ?>
+    <h2>Настройки уведомления:</h2>
+    <form method="POST">
+      <p>
+        <label>
+          Введите значение для фона:
+          <input type="text" name="cnl_bg" value="<?php echo $bg; ?>">
+        </label>
+      </p>
+      <p>
+        <label>
+          Введите значение для цвета текста:
+          <input type="text" name="cnl_color" value="<?php echo $color; ?>">
+        </label>
+      </p>
+      <p>
+        <label>
+          Введите текст уведомления:
+          <input type="text" name="cnl_text" value="<?php echo $text; ?>">
+        </label>
+      </p>
+      <fieldset>
+        <legend>
+          Выберете положение для уведомления:
+        </legend>
+        <label>
+          Сверху
+          <input 
+            type="radio" 
+            name="cnl_position" 
+            value="top"
+            <?php checked('top', $position, true); ?>
+          >
+        </label>
+        <label>
+          Снизу
+          <input 
+            type="radio" 
+            name="cnl_position" 
+            value="bottom"
+            <?php checked('bottom', $position, true); ?>
+          >
+        </label>
+      </fieldset>
+      <br>
+      <button type="submit">Сохранить настройки</button>
+    </form>
+  <?php
   }
 
 ?>
